@@ -1,4 +1,4 @@
-# GitHub Cheat Sheet
+# GitHub Cheat Sheet [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 A collection of cool hidden and not so hidden features of Git and GitHub. This cheat sheet was inspired by [Zach Holman](https://github.com/holman)'s [Git and GitHub Secrets](http://www.confreaks.com/videos/1229-aloharuby2012-git-and-github-secrets) talk at Aloha Ruby Conference 2012 ([slides](https://speakerdeck.com/holman/git-and-github-secrets)) and his [More Git and GitHub Secrets](https://vimeo.com/72955426) talk at WDCNZ 2013 ([slides](https://speakerdeck.com/holman/more-git-and-github-secrets)).
 
 *Shortlink: [`http://git.io/sheet`](http://git.io/sheet)*
@@ -23,6 +23,7 @@ A collection of cool hidden and not so hidden features of Git and GitHub. This c
   - [Cross-Link Issues](#cross-link-issues)
   - [Locking Conversations](#locking-conversations)
   - [CI Status on Pull Requests](#ci-status-on-pull-requests)
+  - [Filters](#filters)
   - [Syntax Highlighting in Markdown Files](#syntax-highlighting-in-markdown-files)
   - [Emojis](#emojis)
   - [Images/GIFs](#imagesgifs)
@@ -36,6 +37,7 @@ A collection of cool hidden and not so hidden features of Git and GitHub. This c
   - [Metadata and Plugin Support for GitHub Pages](#metadata-and-plugin-support-for-github-pages)
   - [Viewing YAML Metadata in your Documents](#viewing-yaml-metadata-in-your-documents)
   - [Rendering Tabular Data](#rendering-tabular-data)
+  - [Rendering PDF](#rendering-pdf)
   - [Revert a Pull Request](#revert-a-pull-request)
   - [Diffs](#diffs)
     - [Rendered Prose Diffs](#rendered-prose-diffs)
@@ -52,11 +54,13 @@ A collection of cool hidden and not so hidden features of Git and GitHub. This c
   - [Remove All Deleted Files from the Working Tree](#remove-all-deleted-files-from-the-working-tree)
   - [Previous Branch](#previous-branch)
   - [Stripspace](#stripspace)
+  - [SSH keys](#ssh-keys)
   - [Checking out Pull Requests](#checking-out-pull-requests)
   - [Empty Commits](#empty-commits)
   - [Styled Git Status](#styled-git-status)
   - [Styled Git Log](#styled-git-log)
   - [Git Query](#git-query)
+  - [Git Grep](#git-grep)
   - [Merged Branches](#merged-branches)
   - [Fixup and Autosquash](#fixup-and-autosquash)
   - [Web Server for Browsing Local Repositories](#web-server-for-browsing-local-repositories)
@@ -193,11 +197,11 @@ This means you also can modify and push updates to Gists:
 ```bash
 $ git commit
 $ git push
-Username for 'https://gist.github.com': 
-Password for 'https://tiimgreen@gist.github.com': 
+Username for 'https://gist.github.com':
+Password for 'https://tiimgreen@gist.github.com':
 ```
 
-However, Gists do not support directories. All files need to be added to the repository root.  
+However, Gists do not support directories. All files need to be added to the repository root.
 [*Read more about creating Gists.*](https://help.github.com/articles/creating-gists)
 
 ### Git.io
@@ -284,6 +288,37 @@ If set up correctly, every time you receive a Pull Request, [Travis CI](https://
 
 [*Read more about the commit status API.*](https://github.com/blog/1227-commit-status-api)
 
+### Filters
+
+Both issues and pull requests allow filtering in the user interface.
+
+For the Rails repo: https://github.com/rails/rails/issues, the following filter is built by selecting the label "activerecord":
+
+`is:issue label:activerecord`
+
+But, you can also find all issues that are NOT labeled activerecord:
+
+`is:issue -label:activerecord`
+
+Additionally, this also works for pull requests:
+
+`is:pr -label:activerecord`
+
+Github has tabs for displaying open or closed issues and pull requests but you
+can also see merged pull requests.  Just put the following in the filter:
+
+`is:merged`
+
+[*Read more about searching issues.*](https://help.github.com/articles/searching-issues)
+
+Finally, github now allows you to filter by the Status API's status.
+
+Pull requests with only successful statuses:
+
+`status:success`
+
+[*Read more about searching on the Status API.*](https://github.com/blog/2014-filter-pull-requests-by-status)
+
 ### Syntax Highlighting in Markdown Files
 For example, to syntax highlight Ruby code in your Markdown files write:
 
@@ -311,6 +346,7 @@ GitHub uses [Linguist](https://github.com/github/linguist) to perform language d
 Emojis can be added to Pull Requests, Issues, commit messages, repository descriptions, etc. using `:name_of_emoji:`.
 
 The full list of supported Emojis on GitHub can be found at [emoji-cheat-sheet.com](http://www.emoji-cheat-sheet.com/) or [scotch-io/All-Github-Emoji-Icons](https://github.com/scotch-io/All-Github-Emoji-Icons).
+A handy emoji search engine can be found at [emoji.muan.co](http://emoji.muan.co/).
 
 The top 5 used Emojis on GitHub are:
 
@@ -461,8 +497,16 @@ GitHub supports rendering tabular data in the form of `.csv` (comma-separated) a
 
 [*Read more about rendering tabular data.*](https://github.com/blog/1601-see-your-csvs)
 
+### Rendering PDF
+
+GitHub supports rendering PDF:
+
+![PDF](https://cloud.githubusercontent.com/assets/1000669/7492902/f8493160-f42e-11e4-8cea-1cb4f02757e7.png)
+
+[*Read more about rendering PDF.*](https://github.com/blog/1974-pdf-viewing)
+
 ###Revert a Pull Request
-After a pull request is merged, you may find it does not help anything or it was a bad decision to merge the pull request. 
+After a pull request is merged, you may find it does not help anything or it was a bad decision to merge the pull request.
 
 You can revert it by clicking the **Revert** button on the right side of a commit in the pull request page to create a pull request with reverted changes to this specific pull request.
 
@@ -568,6 +612,7 @@ GitHubs icons (Octicons) have now been open sourced.
 | GitHub Help | https://help.github.com/ |
 | GitHub Training | https://training.github.com/ |
 | GitHub Developer | https://developer.github.com/ |
+| Github Education (Free Micro Account and other stuff for students) | https://education.github.com/ |
 
 #### GitHub Talks
 | Title | Link |
@@ -594,7 +639,7 @@ On branch master
 Changes not staged for commit:
 	deleted:    a
 	deleted:    c
-	
+
 $ git rm $(git ls-files -d)
 rm 'a'
 rm 'c'
@@ -636,6 +681,18 @@ $ git stripspace < README.md
 ```
 
 [*Read more about the Git `stripspace` command.*](http://git-scm.com/docs/git-stripspace)
+
+### SSH keys
+
+You can get a list of public ssh keys in plain text format by visiting:
+
+```
+https://github.com/{user}.keys
+```
+
+e.g. [https://github.com/tiimgreen.keys](https://github.com/tiimgreen.keys)
+
+[*Read more about accessing public ssh keys.*](https://changelog.com/github-exposes-public-ssh-keys-for-its-users/)
 
 ### Checking out Pull Requests
 
@@ -763,6 +820,33 @@ $ git show :/typo
 ![git show :/query](http://i.imgur.com/icaGiNt.png)
 
 *Press `q` to quit.*
+
+
+### Git Grep
+
+Git Grep will return a list of lines matching a pattern.
+
+Running:
+```bash
+$ git grep aliases
+```
+will show all the files containing the string *aliases*.
+
+![git grep aliases](http://i.imgur.com/DL2zpQ9.png)
+
+*Press `q` to quit.*
+
+You can also use multiple flags for more advanced search. For example:
+
+ * `-e` The next parameter is the pattern (e.g. regex)
+ * `--and`, `--or` and `--not` Combine multiple patterns.
+
+Use it like this:
+```bash
+ $ git grep -e pattern --and -e anotherpattern
+```
+
+[*Read more about the Git `grep` command.*](http://git-scm.com/docs/git-grep)
 
 ### Merged Branches
 Running:
